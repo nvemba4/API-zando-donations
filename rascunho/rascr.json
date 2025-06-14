@@ -1,0 +1,66 @@
+{
+  "name": "Zaipa",                            
+  "userId": "LLUFi0tjIKQeT0p67br57LMyoli2",
+  "donationType": "alimentos",
+  "items": [
+    {
+      "name": "Arroz",
+      "quantity": 5,
+      "condition":"novo",
+      "category":"teste",
+      "description":"Arroz de legume"
+    },
+    {
+      "name": "Frango",
+      "quantity": 2,
+      "condition": "novo",
+      "category":"teste",
+      "description":"usado tempo de escola"
+    }
+  ],
+  "status": "registered",
+  "pickupAddress": {
+    "street": "Rua das Flores",
+    "number": "42",
+    "complement": "Apto 301",
+    "neighborhood": "Centro",
+    "city": "São Paulo",
+    "state": "SP"
+  },
+  "scheduledDate": "2025-07-09T14:00:00Z",
+  "specialNotes": "Itens na porta da garagem",
+  "description": "cumida feita na hora"
+}
+
+
+{
+  "name": "Zaipa",                            
+  "userId": "LLUFi0tjIKQeT0p67br57LMyoli2",
+  "donationType": "alimentos",
+  "items": [
+    {
+      "name": "Arroz",
+      "quantity": 5,
+      "condition":"novo",
+      "category":"teste",
+      "description":"Arroz de legume"
+    },
+    {
+      "name": "Frango",
+      "quantity": 2,
+      "condition": "novo",
+      "category":"teste",
+      "description":"usado tempo de escola"
+    }
+  ],
+  "status": "registrado",
+  "pickupAddress": {
+    "street": "Rua das Flores",
+    "complement": "Apto 301",
+    "neighborhood": "Centro",
+    "city": "São Paulo"
+    
+  },
+  "scheduledDate": "2025-07-09T14:00:00Z",
+  "specialNotes": "Itens na porta da garagem"
+}

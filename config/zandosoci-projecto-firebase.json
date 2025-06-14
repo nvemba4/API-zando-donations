@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "zandosoci-projecto",
+  "private_key_id": "d764f925dc3446ca2f0bd2993cb4e91d6ebb32cb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC0Q3SGUJjxgX8F\nNcvqoSvPZfp79I/hOvqqbvszG4kPFRZ9eu3ZLFsBwd34pjHzmOmzf+LslWfkJiUh\nHtROwvb+5iSufwQZa5bV15S+sMqhjtRLzsXlJ3HSnrElXILuRKhdE856ySLZb25V\np7P4NZmpretHeE1aHAp4QsA2WLrcJWJRCFlFp0krg6lN5TTF7GxJTG7FmWNC7UUS\nNE4j2ujUf/QZSm8hkjahLG6raM+2TCDWshq/APAaDHpAn5/1iaQA4E8Y90+jp8ie\n8yJ/2jiNTKz0NBk/8nS1MkfcfBU0Y+pgmTJslO3hm3CdIw/+xhr1cQY2Emk3N/Ot\niXpFhpjxAgMBAAECggEAHewGhxcQ1CHBMl20LA21xnbwhavaSDIwkqLaaqja7th6\nw7hoi8CLmLaUAGah6wQKYuPLCKdiN+JHDoDeD/bX5gbQtvBZf1i3EGb5B1A0Sm35\nel3nxnpuL95snD2HdEKMSer0PrhtYvdWsrwkKQLIr3wxjkr/WAJIkJ7P5hWDavA4\nF+ug4AYy0/RnVsnTD0JwAR5DMxE+/y1OH8dGv39aiRpGWZRagWTjlq8bLvNkLv+X\nkJZbBFC3ae81AmWH3JmHwYF9SIfZrqs1rPsGRpqrGu30QVRmMIZ7QGJt6c/QPNJg\nkXzhF7N5VtQSmscmbjk+iqpKAtfS30SW9EwHYzwOiwKBgQDpvcEKJpdR0Z6YoK3A\nPK43ooqPsjO2pszjuUQENZIhHbbowCBLPd236q7hc6KzfACzx0NRdQkhRJS7rzWo\nzNbYII4Pi8LFKm4C42repIHvKdPEXrnUtLqAuHSw5AyKZ9Rcy0JCKPABcaJz1bv8\n8apvQF2soCbUAdGYPA4Jwfn6hwKBgQDFbf9i5Z4PU8tcTlpGfhOqB+3bs+0sfPZO\n/W8qG7MuqJyCiGnUTtcHkLdHxYtqqiaPhQb+OLySI7wJmXYOH7Ad+BVfzXhDTG8N\n0gNVtw8PVMlZvuo8VSv67rwBi084CxWV/Nlm1OXicM9iHTJbOpSxZID1/ghYsTS+\nwPbRHvjWxwKBgBS31hGBRC5jZyxeKah9eG/D/4YnJIBPHqAcvtOkr/QxfxH4XaRt\nsmZn7eJb7pL8Lc/BnMzuk8WYH5rXN+ljZrO3hwAHwlbZoPCumb1sVXwOeA/S2aPp\n9RINx4IaZKYr993VwmS83jEyklS0IDqWbSX5TZRMicSG+L4GrLPetrqnAoGAOacv\nhu/KwmsT3ba7wg4bK/H40cmvHui2/MYhakiAgMWYPr4bOXZ0cK8f9oOHfPSHIi4U\nprRmzL5GsP7xbJpwUbAafcmArxZo774+Xw+ABFgcHGsV99xfZX3FxSWrUpBaE1yt\nF8xf/Uo4JUylYeKvfUX+KteuFEhbQMEU0mia/g0CgYB3gj2mHowwksEk5KB9Sylk\nFCnfQviZBnre+b4FcwGx8DSgnIhl/18lKmEY5jPqYC+TJM65svL5/SkTm+n2FNcL\nqnAHo9kTUxl7nXcZ5QpCBY8JwCfBzmvnjWwF804ZF+4CLx51o9NLH0QyK+v5SSTv\nb9dotWvKUEGWvkHGgcUdJg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-fbsvc@zandosoci-projecto.iam.gserviceaccount.com",
+  "client_id": "113436881441372310417",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40zandosoci-projecto.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
