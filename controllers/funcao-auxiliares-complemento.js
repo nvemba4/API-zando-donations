@@ -73,7 +73,7 @@ const generateImpactReport = async (donationId, donationData) => {
     donationId,
     generatedAt: new Date().toISOString(),
     metrics: impactMetrics,
-    recipient: donationData.recipient,
+    centerInfo: donationData.center,
     // photos: await getDeliveryPhotos(donationId),
     reportCode: `IMP-${donationId.slice(0, 5).toUpperCase()}`
   };

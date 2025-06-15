@@ -4,7 +4,7 @@
  * Calcula famílias beneficiadas baseado nos itens
  */
 const calculateFamiliesHelped = (items) => {
-  const foodItems = items.filter(i => i.category === 'alimento');
+  const foodItems = items.filter(i => i.category === 'alimento' || i.category === 'roupa');
   if (foodItems.length === 0) return 0;
   
   const totalFoodUnits = foodItems.reduce((sum, item) => sum + item.quantity, 0);

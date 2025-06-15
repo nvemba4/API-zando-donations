@@ -24,6 +24,7 @@ const authRoutes = require('./routes/auth');
 const distributionCenterRoutes = require("./routes/distributionCentersRoutes");
 const storeRoutes = require('./routes/storeRoutes');
 const logsRoutes = require('./routes/status-logsRoutes ');
+const impactReportRoutes = require('./routes/impactReport');
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -50,6 +51,7 @@ app.use('/api/updateDonationStatus', updateDonationStatusTransitionRoutes);
 app.use('/api/center', distributionCenterRoutes);
 app.use('/api/stores', storeRoutes);
 app.use("/api/logs", logsRoutes);
+app.use("/api/impactreport", impactReportRoutes);
 
 
 

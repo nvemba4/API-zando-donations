@@ -87,7 +87,7 @@ const getCenterStats = async (req, res) => {
     const [centerDoc, donationsSnap] = await Promise.all([
       centerRef.get(),
       db.collection('donations')
-        .where('recipient.centerId', '==', req.params.id)
+        .where('center.centerId', '==', req.params.id)
         .where('status', '==', 'Entregue')
         .get()
     ]);

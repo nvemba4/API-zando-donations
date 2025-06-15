@@ -124,13 +124,13 @@ const getFullDonationInfo = async (donationId) => {
     logs, 
     impact, 
     donor, 
-    recipient
+    center
   ] = await Promise.all([
     db.collection('status_logs').where('donationId', '==', donationId).get(),
     db.collection('impact_reports').where('donationId', '==', donationId).get(),
     db.collection('users').doc(donation.data().donorId.split('/')[1]).get(),
-    donation.data().recipient?.centerId 
-      ? db.collection('distribution_centers').doc(donation.data().recipient.centerId).get()
+    donation.data().center?.centerId 
+      ? db.collection('distribution_centers').doc(donation.data().center.centerId).get()
       : Promise.resolve(null)
   ]);
 
@@ -139,7 +139,7 @@ const getFullDonationInfo = async (donationId) => {
     history: logs.docs.map(doc => doc.data()),
     impactReport: impact.docs[0]?.data(),
     donorInfo: donor.data(),
-    recipientInfo: recipient?.data()
+    centerInfo: center?.data()
   };
 };
 

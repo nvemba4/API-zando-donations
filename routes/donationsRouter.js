@@ -33,7 +33,7 @@ router.get('/:id/fullDonationInfo', async (req, res) => {
         donorInfo: result.donorInfo ,
         history: result.history,
         impactReport: result.impactReport,
-        recipientInfo: result.recipientInfo.Route,
+        centerInfo: result.centerInfo,
         updatedAt: new Date().toISOString()
       });
     }  catch (error) {

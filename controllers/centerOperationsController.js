@@ -30,7 +30,7 @@ const listCenterDonations = async (req, res) => {
   try {
     const { limit = 10, offset = 0 } = req.query;
     const snapshot = await db.collection('donations')
-      .where('recipient.centerId', '==', req.params.id)
+      .where('center.centerId', '==', req.params.id)
       .orderBy('deliveryDate', 'desc')
       .limit(parseInt(limit))
       .offset(parseInt(offset))

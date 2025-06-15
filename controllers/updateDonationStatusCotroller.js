@@ -132,13 +132,13 @@ const handleStatusSpecificOperations = async (newStatus, donationData, userId, c
 
     case 'Descartado':
       //  handleDiscardedItems -> registra items descartado
-      operations.updateInventory = await handleDiscardedItems(id, items, userId);
-      operations.createLog = createStatusLog(id, 'Descartado', userId, 'Item descartado');
+      operations.updateInventory = await handleDiscardedItems(currentDonationId, items, userId);
+      operations.createLog = createStatusLog(currentDonationId, 'Descartado', userId, 'Item descartado');
       break;
 
     case 'ImpactoRegistrado':
         // generateImpactReport ->  Gera relatório de impacto completo
-      operations.createImpactReport = await generateImpactReport(id, donationData);
+      operations.createImpactReport = await generateImpactReport(currentDonationId, donationData);
       operations.createLog = createStatusLog(currentDonationId, 'ImpactoRegistrado', userId, 'Impacto registrado');
       break;
 
@@ -163,13 +163,13 @@ const getFullDonation = async (donationId) => {
     logs, 
     impact, 
     donor, 
-    recipient
+    center
   ] = await Promise.all([
     db.collection('status_logs').where('donationId', '==', donationId).get(),
     db.collection('impact_reports').where('donationId', '==', donationId).get(),
     db.collection('users').doc(donation.data().donorId.split('/')[1]).get(),
-    donation.data().recipient?.centerId 
-      ? db.collection('distribution_centers').doc(donation.data().recipient.centerId).get()
+    donation.data().center?.centerId 
+      ? db.collection('distribution_centers').doc(donation.data().center.centerId).get()
       : Promise.resolve(null)
   ]);
 
@@ -178,7 +178,7 @@ const getFullDonation = async (donationId) => {
     history: logs.docs.map(doc => doc.data()),
     impactReport: impact.docs[0]?.data(),
     donorInfo: donor.data(),
-    recipientInfo: recipient?.data()
+    centerInfo: center?.data()
   };
 };
 
