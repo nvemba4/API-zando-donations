@@ -12,8 +12,8 @@ class DistributionCenter {
     contact,
     operatingHours,
     needs,
-    createdAt = new Date(),
-    updatedAt = new Date()
+    createdAt = new Date().toISOString(),
+    updatedAt = new Date().toISOString()
   }) {
     this.centerId = centerId;
     this.name = name;

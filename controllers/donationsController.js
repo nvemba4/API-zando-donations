@@ -10,7 +10,7 @@ const createDonations = async (req, res) => {
       userId,
       donationType,
       items,
-      status,
+      status = "Registrado",
       pickupAddress,
       scheduledDate,
       specialNotes
@@ -116,37 +116,63 @@ const getDonationByUserId = async (req, res) => {
   }
 };
 
+// get  full donations lista informação completa da doaçao.
+
+const getFullDonationInfo = async (donationId) => {
+  const donation = await db.collection('donations').doc(donationId).get();
+  const [
+    logs, 
+    impact, 
+    donor, 
+    recipient
+  ] = await Promise.all([
+    db.collection('status_logs').where('donationId', '==', donationId).get(),
+    db.collection('impact_reports').where('donationId', '==', donationId).get(),
+    db.collection('users').doc(donation.data().donorId.split('/')[1]).get(),
+    donation.data().recipient?.centerId 
+      ? db.collection('distribution_centers').doc(donation.data().recipient.centerId).get()
+      : Promise.resolve(null)
+  ]);
+
+  return {
+    donations: [{...donation.data()}],
+    history: logs.docs.map(doc => doc.data()),
+    impactReport: impact.docs[0]?.data(),
+    donorInfo: donor.data(),
+    recipientInfo: recipient?.data()
+  };
+};
 
 /**
  * @route PATCH /donations/:id/status
  * @description Atualiza o status de uma doação
  * @access Private (Admin)
  */
-const updateStatus = async (req, res) => {
-  try {
-    const validStatuses = ['pendente', 'scheduled',
-       'collectado', 'processado', 'distribuido', 'cancelado'];
+ const updateStatusField = async (req, res) => {
+   try {
+    //  const validStatuses = ['pendente', 'scheduled',
+    //     'collectado', 'processado', 'distribuido', 'cancelado'];
     
-    if (!validStatuses.includes(req.body.status)) {
-      return res.status(400).json({ error: 'Status inválido' });
-    }
+    //  if (!validStatuses.includes(req.body.status)) {
+    //    return res.status(400).json({ error: 'Status inválido' });
+    //  }
     
-       const  donationRef = db.collection('donations');
-       const donationsData = await donationRef.doc(req.params.id).get();
-      if (!donationsData.exists) {
-      return res.status(404).json({ error: 'doação não encontrada' });
-    }
-        await donationRef.doc(req.params.id).update({
-              status: req.body.status,
-              updatedAt: new Date().toISOString()
-           });
+        const  donationRef = db.collection('donations');
+        const donationsData = await donationRef.doc(req.params.id).get();
+       if (!donationsData.exists) {
+       return res.status(404).json({ error: 'doação não encontrada' });
+     }
+         await donationRef.doc(req.params.id).update({
+               status: req.body.status,
+               updatedAt: new Date().toISOString()
+            });
 
-    res.json({ message: 'Status atualizado com sucesso' });
-  } catch (error) {
-    console.error('Erro ao atualizar status:', error);
-    res.status(500).json({ error: error.message });
-  }
-};
+     res.json({ message: 'Status atualizado com sucesso' });
+   } catch (error) {
+     console.error('Erro ao atualizar status:', error);
+     res.status(500).json({ error: error.message });
+   }
+ };
 
 
 const getAlldonations = async (req, res) => {
@@ -178,12 +204,17 @@ const getAlldonations = async (req, res) => {
 
 const getDonationFilter = async (req, res) => {
   try {
-    const { status, userId } = req.query;
+    const { status, userId, donationId, donationType,updatedAt,createdAt} = req.query;
     let query =  db.collection('donations');
     
     if (status) query = query.where('status', '==', status);
-    if (userId) query = query.where('donorId', '==',  userId);
-    
+    if (userId) query = query.where('userId', '==',  userId);
+    if (donationId) query = query.where('donationId', '==', donationId);
+    if (donationType) query = query.where('donationType', '==',  donationType);
+    if (updatedAt) query = query.where('updatedAt', '==',  updatedAt);
+    if (createdAt) query = query.where('createdAt', '==',  createdAt);
+     
+
     const snapShot = await query.get();
 
     const donations = snapShot.docs.map((doc) => ({
@@ -203,7 +234,7 @@ const getDonationFilter = async (req, res) => {
 };
 
 
-const updateDonations = async (req, res) => {
+const updateDonation = async (req, res) => {
   try {
 
       const donationRef = db.collection('donations');
@@ -246,9 +277,10 @@ module.exports = {
   createDonations,
   getDonation,
   getDonationByUserId,
-  updateStatus,
+  updateStatusField,
+  getFullDonationInfo,
   getAlldonations,
   getDonationFilter,
-  updateDonations,
+  updateDonation,
   deleteDonation
 };

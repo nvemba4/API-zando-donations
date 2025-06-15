@@ -4,7 +4,7 @@ const router = express.Router();
 
 const {
     validateStatusChange,
-    authenticateAdmin
+    authenticateAdmin,
 } = require("../middlewares/validacao-Admin");
 
 const { updateDonationStatus , getFullDonation } = require("../controllers/updateDonationStatusCotroller");
@@ -23,7 +23,7 @@ router.patch('/:donationId/status',
         success: true,
         donationId: result.donationId,
         newStatus: result.newStatus,
-        updatedAt: new Date()
+        updatedAt: new Date().toISOString()
       });
 
     } catch (error) {
@@ -51,29 +51,6 @@ router.get('/:donationId/history', async (req, res) => {
         error: error.message
       });
 }
-});
-
-router.get('/listDonations', async (req, res) => {
-    try {
-       const result = await getFullDonation(req.params.uid);
-
-       res.json({
-        success: true,
-        donations: result.donations,
-        donorInfo: result.donorInfo ,
-        history: result.history,
-        impactReport: result.impactReport,
-        recipientInfo: result.recipientInfo.Route,
-        updatedAt: new Date().toISOString()
-      });
-    }  catch (error) {
-      console.error('list donations  error:', error.message);
-      res.status(400).json({
-        success: false,
-        error: error.message
-      });
-    }
-
 });
 
 

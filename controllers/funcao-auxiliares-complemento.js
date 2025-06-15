@@ -28,7 +28,7 @@ const getStore = async (items) => {
   return {
     storeId: snapshot.docs[0].id,
     name: snapshot.docs[0].data().name,
-    assignedAt: new Date()
+    assignedAt: new Date().toISOString()
   };
 };
 
@@ -36,7 +36,7 @@ const getStore = async (items) => {
  * Atribui o destinatário para alimentos
  */
 const getDistributionCenter = async (donation) => {
-  const foodItems = donation.items.filter(i => i.category === 'alimento');
+  const foodItems = donation.items.filter(i => i.category === 'alimento' ||  i.category === 'roupa');
   if (foodItems.length === 0) return null;
 
   const centersRef = db.collection('distribution_centers');
@@ -53,7 +53,9 @@ const getDistributionCenter = async (donation) => {
     centerId: snapshot.docs[0].id,
     name: centerData.name,
     address: centerData.address,
-    contact: centerData.manager
+    manager: centerData.manager,
+    contact: centerData.contact
+
   };
 };
 
@@ -69,7 +71,7 @@ const generateImpactReport = async (donationId, donationData) => {
 
   return {
     donationId,
-    generatedAt: new Date(),
+    generatedAt: new Date().toISOString(),
     metrics: impactMetrics,
     recipient: donationData.recipient,
     // photos: await getDeliveryPhotos(donationId),
@@ -109,7 +111,7 @@ const handleDiscardedItems = async (donationId, items, userId) => {
     donationId,
     items: items.map(i => ({ id: i.id, name: i.name, reason: 'Danificado' })),
     discardedBy: userId,
-    timestamp: new Date(),
+    timestamp: new Date().toISOString(),
     // disposalMethod: determineDisposalMethod(items)
   });
 
@@ -129,7 +131,7 @@ const createStatusLog = (donationId, status, userId, notes = '') => ({
   donationId,
   status,
   changedBy: userId,
-  timestamp: new Date(),
+  timestamp: new Date().toISOString(),
   notes,
   systemEvent: true
 });

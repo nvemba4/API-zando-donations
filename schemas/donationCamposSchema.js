@@ -8,21 +8,23 @@ const today = new Date().toISOString().split('T')[0];
 const donationSchema = Joi.object({
   name: Joi.string().required(),
   userId: Joi.string().required(),
-  donationType: Joi.string().valid('roupa', 'alimentos', 'outro').required(),
+  donationType: Joi.string().valid('roupa', 'alimento', 'outro').required(),
   items: Joi.array().items(
     Joi.object({
       name: Joi.string().required(),
       quantity: Joi.number().min(1).required(),
       category: Joi.string().required(),
       description: Joi.string().allow(''),
-      condition: Joi.string().valid('novo', 'usado', 'danificado').when('donationType', {
+      condition: Joi.string().valid('novo', 'usado',
+         'danificado','bom','excelente','regular','mau','concertar')
+      .when('donationType', {
         is: 'roupa',
         then: Joi.required(),
         otherwise: Joi.optional()
       })
     }).min(1).required()
   ),
-  status: Joi.string().required(),
+  status: Joi.string().allow(''),
   pickupAddress: Joi.object({
     street: Joi.string().required(),
     complement: Joi.string().allow(''),
@@ -42,7 +44,7 @@ const donationSchema = Joi.object({
 });
 
 // Middleware para validação
-const validateDonation = (req, res, next) => {
+const validateDonationSchema = (req, res, next) => {
   const { error } = donationSchema.validate(req.body);
   if (error) {
     return res.status(400).json({ error: error.details[0].message });
@@ -50,5 +52,5 @@ const validateDonation = (req, res, next) => {
   next();
 };
 
- module.exports = validateDonation;
+ module.exports = validateDonationSchema;
 

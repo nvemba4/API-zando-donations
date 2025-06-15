@@ -23,6 +23,7 @@ const updateDonationStatusTransitionRoutes = require('./routes/routeUpdateTransi
 const authRoutes = require('./routes/auth');
 const distributionCenterRoutes = require("./routes/distributionCentersRoutes");
 const storeRoutes = require('./routes/storeRoutes');
+const logsRoutes = require('./routes/status-logsRoutes ');
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -40,14 +41,15 @@ app.get("/hello", (req, res) => {
     return res.status(200).send("Firebase connection is working");
 });
 
-app.use("/users", userRoutes);
-app.use("/admin", adminRoutes);
-app.use("/donations", donationsRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/donations", donationsRoutes);
 app.use('/api/auth', authRoutes);
 // updateDonationsTransitionRoutes
-app.use('/updateDonationStatus', updateDonationStatusTransitionRoutes);
-app.use('/center', distributionCenterRoutes);
-app.use('/stores', storeRoutes);
+app.use('/api/updateDonationStatus', updateDonationStatusTransitionRoutes);
+app.use('/api/center', distributionCenterRoutes);
+app.use('/api/stores', storeRoutes);
+app.use("/api/logs", logsRoutes);
 
 
 

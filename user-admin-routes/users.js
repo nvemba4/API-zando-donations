@@ -29,7 +29,7 @@ router.post("/create",
       const createdAtDate = dateObj.toLocaleDateString();
       const createdAtTime = dateObj.toLocaleTimeString();
       
-      if (role == 'users') {
+    
         await db.collection("users").doc(userRecord.uid).set({
                 email,
                 name: displayName,
@@ -37,17 +37,6 @@ router.post("/create",
                 createdAtDate,
                 createdAtTime,
               });
-      }
-
-      else if (role == 'admin') {
-    await db.collection("admin").doc(userRecord.uid).set({
-        email,
-        name: displayName,
-        role,
-        createdAtDate,
-        createdAtTime,
-      });
-      }
 
       
 

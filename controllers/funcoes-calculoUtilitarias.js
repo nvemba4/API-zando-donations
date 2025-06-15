@@ -40,7 +40,7 @@ const determineDisposalMethod = (items) => {
 const uploadDeliveryProof = async (donationId) => {
   return {
     url: `https://storage.googleapis.com/delivery-proofs/${donationId}.jpg`,
-    uploadedAt: new Date(),
+    uploadedAt: new Date().toISOString(),
     verified: false
   };
 };

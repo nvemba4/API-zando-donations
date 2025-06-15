@@ -9,7 +9,7 @@ class Donation {
     name = '',
     quantity = 0,
     condition = '',
-    createdAt = new Date()
+    createdAt = new Date().toISOString()
   }) {
     this.donationId = ''; // Será gerado pelo Firestore
     this.donorId = donorId;

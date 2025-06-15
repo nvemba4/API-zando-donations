@@ -22,8 +22,11 @@ const updateDonationStatus = async (donationId, newStatus, userId, notes = '') =
     const currentStatus = currentData.status;
     const items = currentData.items;
 
+  
     // Valida transição
     validateTransition(currentStatus, newStatus, items);
+
+    
 
     // Prepara atualização
     const updateData = prepareStatusUpdate(newStatus, userId, notes);
@@ -50,8 +53,9 @@ const updateDonationStatus = async (donationId, newStatus, userId, notes = '') =
  */
 const validateTransition = (currentStatus, newStatus, items) => {
   const validTransitions = {
-    "registrado": [ 'EmProcessamento'],
-    "AguardandoColeta": ['EmProcessamento'],
+    "Registrado": [ 'AguardandoColeta'],
+    "AguardandoColeta": [ 'Coletado'],
+    "Coletado": ['EmProcessamento'],
     "EmProcessamento": getProcessingDestinations(items),
     "DisponivelLoja": ['Vendido'],
     "Vendido": ['ImpactoRegistrado'],
@@ -69,8 +73,10 @@ const validateTransition = (currentStatus, newStatus, items) => {
  */
 const getProcessingDestinations = (items) => {
   const destinations = ['Descartado'];
-  if (items.some(i => i.category === 'roupa')) destinations.push('DisponivelLoja');
+  if (items.some(i => i.category === 'roupa' && i.condition === "excelente")) destinations.push('DisponivelLoja');
+  if (items.some(i => i.category === 'roupa' && i.condition === "regular")) destinations.push('Entregue');
   if (items.some(i => i.category === 'alimento')) destinations.push('Entregue');
+  // if (items.some(i => i.condition === 'danificado'))destinations.push('Descartado');
   return destinations;
 };
 
@@ -88,11 +94,11 @@ const prepareStatusUpdate = (newStatus, userId, notes) => {
 
   // Campos específicos por status
   const statusFields = {
-    EmProcessamento: { processingStart: new Date() },
-    DisponivelLoja: { availableDate: new Date() },
-    Vendido: { soldDate: new Date() },
-    Entregue: { deliveryDate: new Date() },
-    ImpactoRegistrado: { impactRegisteredAt: new Date() }
+    EmProcessamento: { processingStart: new Date().toISOString() },
+    DisponivelLoja: { availableDate: new Date().toISOString() },
+    Vendido: { soldDate: new Date().toISOString() },
+    Entregue: { deliveryDate: new Date().toISOString() },
+    ImpactoRegistrado: { impactRegisteredAt: new Date().toISOString() }
   };
 
   return { ...updateData, ...statusFields[newStatus] };
@@ -121,7 +127,7 @@ const handleStatusSpecificOperations = async (newStatus, donationData, userId, c
         // deliveryProof: await uploadDeliveryProof(id) 
       };
       // cria createStatusLog historico
-      operations.createLog = createStatusLog(id, 'Entregue', userId, `Entregue no ${centerInfo.name}`);
+      operations.createLog = createStatusLog(currentDonationId, 'Entregue', userId, `Entregue no ${centerInfo.name}`);
       break;
 
     case 'Descartado':
@@ -133,7 +139,7 @@ const handleStatusSpecificOperations = async (newStatus, donationData, userId, c
     case 'ImpactoRegistrado':
         // generateImpactReport ->  Gera relatório de impacto completo
       operations.createImpactReport = await generateImpactReport(id, donationData);
-      operations.createLog = createStatusLog(id, 'ImpactoRegistrado', userId, 'Impacto registrado');
+      operations.createLog = createStatusLog(currentDonationId, 'ImpactoRegistrado', userId, 'Impacto registrado');
       break;
 
       // case 'Vendido':
@@ -147,7 +153,6 @@ const handleStatusSpecificOperations = async (newStatus, donationData, userId, c
 
   return operations;
 };
-
 
 
 // get  full donations lista informação completa da doaçao.

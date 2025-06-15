@@ -71,7 +71,10 @@ const storeController = {
         });
       });
 
-      res.json(stores);
+      res.json({
+        stores:stores,
+        length:stores.length
+      });
     } catch (error) {
         console.log(error.message);
       res.status(500).json({ error: 'Erro ao listar lojas' });
